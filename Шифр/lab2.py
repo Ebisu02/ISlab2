@@ -184,20 +184,20 @@ def rsa_test(message, state):
         keys_a = generate_keys_rsa(bits=16)
         encrypted_message = encrypt_rsa(message, keys_b, keys_a)
         decrypted_message = decrypt_rsa(encrypted_message, keys_a, keys_b)
-        with open("Шифр/encrypted_msg_rsa.txt", "w", encoding="utf-8") as efile:
+        with open("obj/encrypted_msg_rsa.txt", "w", encoding="utf-8") as efile:
             for byte in encrypted_message:
                 efile.write(f'{str(byte)} ')
-        with open("Шифр/decrypted_msg_rsa.txt", "w", encoding="utf-8") as defile:
+        with open("obj/decrypted_msg_rsa.txt", "w", encoding="utf-8") as defile:
             defile.write(decrypted_message)
     elif state == IMG:
         keys_b = generate_keys_rsa(bits=16)
         keys_a = generate_keys_rsa(bits=16)
         encrypted_message = encrypt_rsa(message, keys_b, keys_a, state=IMG)
         decrypted_message = decrypt_rsa(encrypted_message, keys_a, keys_b, state=IMG)
-        with open("Шифр/encrypted_img_rsa.txt", "w", encoding="utf-8") as efile:
+        with open("obj/encrypted_img_rsa.txt", "w", encoding="utf-8") as efile:
             for byte in encrypted_message:
                 efile.write(f'{str(byte)} ')
-        with open("Шифр/decrypted_img_rsa.png", "wb") as defile:
+        with open("obj/decrypted_img_rsa.png", "wb") as defile:
             for byte in decrypted_message:
                 defile.write(ord(byte).to_bytes(1, byteorder="big"))
 
@@ -218,20 +218,20 @@ def vernam_test(msg, state):
         encrypted_msg = encrypt_vn(msg_bytes, key)
         decrypted_msg_bytes = decrypt_vn(encrypted_msg, key)
         decrypted_msg = ''.join(chr(byte) for byte in decrypted_msg_bytes)
-        with open("Шифр/encrypted_msg_vn.txt", "w", encoding="utf-8") as efile:
+        with open("obj/encrypted_msg_vn.txt", "w", encoding="utf-8") as efile:
             for byte in encrypted_msg:
                 efile.write(f'{str(byte)} ')
-        with open("Шифр/decrypted_msg_vn.txt", "w", encoding="utf-8") as defile:
+        with open("obj/decrypted_msg_vn.txt", "w", encoding="utf-8") as defile:
             defile.write(decrypted_msg)
     elif state == IMG:
         msg_bytes = [ord(chr(byte)) for byte in msg]
         key = generate_keys_vernam(len(msg_bytes))
         encrypted_msg = encrypt_vn(msg_bytes, key)
         decrypted_msg_bytes = decrypt_vn(encrypted_msg, key)
-        with open("Шифр/encrypted_img_vn.txt", "w", encoding="utf-8") as efile:
+        with open("obj/encrypted_img_vn.txt", "w", encoding="utf-8") as efile:
             for byte in encrypted_msg:
                 efile.write(f'{str(byte)} ')
-        with open("Шифр/decrypted_img_vn.png", "wb") as defile:
+        with open("obj/decrypted_img_vn.png", "wb") as defile:
             for byte in decrypted_msg_bytes:
                 defile.write(byte.to_bytes(1, byteorder="big"))
 
@@ -266,10 +266,10 @@ def shamir_test(message, state):
         encrypted_message = encrypt_sh(encrypted_message, D_A, p)
         decrypted_message_bytes = decrypt_sh(encrypted_message, D_B, p)
         decrypted_message = ''.join(chr(byte) for byte in decrypted_message_bytes)
-        with open("Шифр/encrypted_msg_sh.txt", "w", encoding="utf-8") as efile:
+        with open("obj/encrypted_msg_sh.txt", "w", encoding="utf-8") as efile:
             for byte in encrypted_message:
                 efile.write(f'{str(byte)} ')
-        with open("Шифр/decrypted_msg_sh.txt", "w", encoding="utf-8") as defile:
+        with open("obj/decrypted_msg_sh.txt", "w", encoding="utf-8") as defile:
             defile.write(decrypted_message)
     elif state == IMG:
         p = generate_prime(16)
@@ -280,10 +280,10 @@ def shamir_test(message, state):
         encrypted_message = encrypt_sh(encrypted_message, C_B, p)
         encrypted_message = encrypt_sh(encrypted_message, D_A, p)
         decrypted_message_bytes = decrypt_sh(encrypted_message, D_B, p)
-        with open("Шифр/encrypted_img_sh.txt", "w", encoding="utf-8") as efile:
+        with open("obj/encrypted_img_sh.txt", "w", encoding="utf-8") as efile:
             for byte in encrypted_message:
                 efile.write(f'{str(byte)} ')
-        with open("Шифр/decrypted_img_sh.png", "wb") as defile:
+        with open("obj/decrypted_img_sh.png", "wb") as defile:
             for byte in decrypted_message_bytes:
                 defile.write(byte.to_bytes(1, byteorder="big"))
 
@@ -307,11 +307,11 @@ def el_gamal_test(message, state):
         decrypted_msg_bytes = decrypt_eg(p, x, a, b)
         decrypted_msg = ''.join(chr(byte) for byte in decrypted_msg_bytes)
         # first symbol in file - a, other - b
-        with open("Шифр/encrypted_msg_eg.txt", "w", encoding="utf-8") as efile:
+        with open("obj/encrypted_msg_eg.txt", "w", encoding="utf-8") as efile:
             efile.write(f'{a} ')
             for byte in b:
                 efile.write(f'{str(byte)} ')
-        with open("Шифр/decrypted_msg_eg.txt", "w", encoding="utf-8") as defile:
+        with open("obj/decrypted_msg_eg.txt", "w", encoding="utf-8") as defile:
             defile.write(decrypted_msg)
     elif state == IMG:
         p, g = generate_params_eg()
@@ -319,11 +319,11 @@ def el_gamal_test(message, state):
         msg_bytes = [ord(chr(byte)) for byte in message]
         a, b = encrypt_eg(p, g, y, msg_bytes)
         decrypted_msg_bytes = decrypt_eg(p, x, a, b)
-        with open("Шифр/encrypted_img_eg.txt", "w", encoding="utf-8") as efile:
+        with open("obj/encrypted_img_eg.txt", "w", encoding="utf-8") as efile:
             efile.write(f'{a} ')
             for byte in b:
                 efile.write(f'{str(byte)} ')
-        with open("Шифр/decrypted_img_eg.png", "wb") as defile:
+        with open("obj/decrypted_img_eg.png", "wb") as defile:
             for byt in decrypted_msg_bytes:
                 defile.write(byt.to_bytes(1, byteorder="big"))
 
@@ -332,13 +332,13 @@ def lab2():
     # shamir_test("Hello!", state=TEST)
     # el_gamal_test("Hello!", state=TEST)
     # rsa_test("Hello!", state=TEST)
-    with open("Шифр/input.txt", "r", encoding="utf-8") as input_file:
+    with open("TEST_DATA/input.txt", "r", encoding="utf-8") as input_file:
         strrr = input_file.read()
         # shamir_test(message=strrr, state=TO_FILE)
         # el_gamal_test(message=strrr, state=TO_FILE)
         # rsa_test(message=strrr, state=TO_FILE)
         # vernam_test(msg=strrr, state=TO_FILE)
-    with open("Шифр/test.png", "rb") as img:
+    with open("TEST_DATA/test.png", "rb") as img:
         bin_data = img.read()
         # el_gamal_test(bin_data, IMG)
         # shamir_test(bin_data, IMG)
